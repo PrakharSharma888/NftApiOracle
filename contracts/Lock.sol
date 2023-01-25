@@ -19,8 +19,11 @@ contract NFTApi is Ownable{
 
     }
     
-    function nftStore(address _nftToken_address) public onlyOwner returns(bool){
+    function nftStore(address _nftToken_address) public onlyOwner{
         nftToken_address = _nftToken_address;
-        return true;
+    }
+
+    function retriveNFTs() view public returns(address){
+        return nftToken_address;
     }
 }

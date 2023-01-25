@@ -47,6 +47,9 @@ async function main() {
       console.log({ receipt });
     });
 
+    const addressNFT = await _api.retriveNFTs()
+    console.log("NFT Token Address: ",addressNFT)
+
     //console.log(n);
   } catch (e) {
     console.error(e);
