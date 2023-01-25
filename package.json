@@ -7,6 +7,7 @@
   "dependencies": {
     "@moralisweb3/common-evm-utils": "^2.12.0",
     "@moralisweb3/evm-utils": "^2.12.0",
+    "@openzeppelin/contracts": "^4.8.1",
     "moralis": "^2.12.0"
   }
 }
