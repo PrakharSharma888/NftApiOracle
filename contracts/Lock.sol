@@ -6,7 +6,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract NFTApi is Ownable{
 
-    address nftToken_address;
+   string nameNFT;
+   address token_address_nft;
+   string token_uri_nft;
+   string metadata_nft;
+   address minter_address_nft;
   
     event getNftsEvent(
         address _user
@@ -19,11 +23,16 @@ contract NFTApi is Ownable{
 
     }
     
-    function nftStore(address _nftToken_address) public onlyOwner{
-        nftToken_address = _nftToken_address;
+    function nftStore(string memory _nameNFT,address _token_address_nft, string memory _token_uri_nft, 
+        string memory _metadata_nft, address _minter_address_nft ) public onlyOwner{
+        nameNFT = _nameNFT;
+        token_address_nft = _token_address_nft;
+        token_uri_nft = _token_uri_nft;
+        metadata_nft = _metadata_nft;
+        minter_address_nft = _minter_address_nft;
     }
 
-    function retriveNFTs() view public returns(address){
-        return nftToken_address;
+    function retriveNFTs() view public returns(string memory, address, string memory, string memory, address){
+        return (nameNFT,token_address_nft,token_uri_nft,metadata_nft,minter_address_nft);
     }
 }

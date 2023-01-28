@@ -15,7 +15,7 @@ async function main() {
     "Address :", _api.address
   );
 
-  const transactionResponse = await _api.getNfts("0x1234567890123456789012345678901234567890")
+  const transactionResponse = await _api.getNfts("0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
   const transactionReceipt = await transactionResponse.wait()
   // console.log(transactionReceipt.events[0])
   // console.log(transactionReceipt.events[0].args._user)
@@ -39,10 +39,16 @@ async function main() {
     // console.log(nftName);
    // const n = response.result[12].name
    const jsonData = response.toJSON()
-    console.log("Data: ",jsonData.result[0].token_address);
-    const returnValue = jsonData.result[0].token_address
+   //console.log(jsonData);
+    console.log("Data: ",jsonData.result[12].name);
+    const name = jsonData.result[12].name
+    const token_address = jsonData.result[12].token_address
+    const token_uri = jsonData.result[12].token_uri
+    const metadata = jsonData.result[12].metadata
+    const minter_address = jsonData.result[12].minter_address
 
-    const receiptPromise = _api.nftStore(returnValue);
+
+    const receiptPromise = _api.nftStore(name,token_address,token_uri,metadata,minter_address);
     receiptPromise.then((receipt) => {
       console.log({ receipt });
     });
@@ -53,8 +59,6 @@ async function main() {
     //console.log(n);
   } catch (e) {
     console.error(e);
-
-
 }
 }
 
