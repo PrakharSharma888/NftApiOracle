@@ -20,6 +20,7 @@ async function main() {
 
   try {
     const address = transactionReceipt.events[0].args._user;
+    const id = transactionReceipt.events[0].args.id;
 
     const chain = EvmChain.ETHEREUM;
 
@@ -41,13 +42,13 @@ async function main() {
     const minter_address = jsonData.result[20].minter_address
     console.log(name,token_address,token_uri,metadata,minter_address)
 
-    const receiptPromise = _api.nftStore(name,token_address,token_uri,minter_address);
+    const receiptPromise = _api.nftStore(id,name,token_address,token_uri,minter_address);
     receiptPromise.then((receipt) => {
       console.log({ receipt });
-      const addressNFT = _api.retriveNFTs()
+      const addressNFT = _api.retriveNFTs(id)
       addressNFT.then((data) => {
         console.log("done")
-        console.log("NFT Token Address: ",data)
+        console.log(`NFT Token Address for id ${id} : `,data)
       })
     });    
   } catch (e) {
