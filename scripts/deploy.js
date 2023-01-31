@@ -17,10 +17,7 @@ async function main() {
 
   const transactionResponse = await _api.getNfts("0xd8da6bf26964af9d7eed9e03e53415d37aa96045")
   const transactionReceipt = await transactionResponse.wait()
-  // console.log(transactionReceipt.events[0])
-  // console.log(transactionReceipt.events[0].args._user)
-  //const call = await _api.getNfts("0x5aAB360f4eEC9C823175711d22D7D0C920D4481a")
-  //console.log(call)
+
   try {
     const address = transactionReceipt.events[0].args._user;
 
@@ -31,32 +28,28 @@ async function main() {
     })
 
     const response = await Moralis.EvmApi.nft.getWalletNFTs({
-
         address,
         chain,
     });
-    // const nftName = response.result[1].name
-    // console.log(nftName);
-   // const n = response.result[12].name
+
    const jsonData = response.toJSON()
-   //console.log(jsonData);
-    console.log("Data: ",jsonData.result[12].name);
-    const name = jsonData.result[12].name
-    const token_address = jsonData.result[12].token_address
-    const token_uri = jsonData.result[12].token_uri
-    const metadata = jsonData.result[12].metadata
-    const minter_address = jsonData.result[12].minter_address
+    console.log("Data: ",jsonData.result[20].name);
+    const name = jsonData.result[20].name
+    const token_address = jsonData.result[20].token_address
+    const token_uri = jsonData.result[20].token_uri
+    const metadata = jsonData.result[20].metadata
+    const minter_address = jsonData.result[20].minter_address
+    console.log(name,token_address,token_uri,metadata,minter_address)
 
-
-    const receiptPromise = _api.nftStore(name,token_address,token_uri,metadata,minter_address);
+    const receiptPromise = _api.nftStore(name,token_address,token_uri,minter_address);
     receiptPromise.then((receipt) => {
       console.log({ receipt });
-    });
-
-    const addressNFT = await _api.retriveNFTs()
-    console.log("NFT Token Address: ",addressNFT)
-
-    //console.log(n);
+      const addressNFT = _api.retriveNFTs()
+      addressNFT.then((data) => {
+        console.log("done")
+        console.log("NFT Token Address: ",data)
+      })
+    });    
   } catch (e) {
     console.error(e);
 }
